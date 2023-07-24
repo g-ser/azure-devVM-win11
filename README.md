@@ -3,7 +3,7 @@
 - Clone the repository
 - Using the ```cd``` utility of the CLI go to the [src](/src/) folder
 - Log into Azure interactively using the CLI: ```az login```
-- Since the scope of the deployment is a subscription you need to change the active subscription using the subscription name: <br/> ```az account set --subscription <SUBSCRIPTION_NAME>```<br/>or<br/>```az account set --subscription <SUBSCRIPTION_ID>```
+- Since the scope of the deployment is a subscription, you need to change the active subscription using the subscription name: <br/> ```az account set --subscription <SUBSCRIPTION_NAME>```<br/>or<br/>```az account set --subscription <SUBSCRIPTION_ID>```
 - Make sure that you are under the correct subscription by using: ```az account show```  
 - Set a variable to point to the ```main.bicep``` file as below: <br/>
 ```templateFile="main.bicep"```

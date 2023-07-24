@@ -3,6 +3,10 @@ param virtualMachineName string
 param virtualMachineSize string
 param adminUsername string
 param devVmNetworkInterfaceId string
+param scriptLocation string
+param scriptFileName string
+param chocoPackages string
+
 
 @secure()
 param adminPassword string
@@ -67,6 +71,27 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = {
       bootDiagnostics: {
         enabled: true
       }
+    }
+  }
+}
+
+resource SetupChocolatey 'Microsoft.Compute/virtualMachines/extensions@2019-07-01' = {
+  parent: virtualMachine
+  name: 'SetupChocolatey'
+  location: location
+  tags: {
+    displayName: 'config-choco'
+  }
+  properties: {
+    publisher: 'Microsoft.Compute'
+    type: 'CustomScriptExtension'
+    typeHandlerVersion: '1.10'
+    autoUpgradeMinorVersion: true
+    settings: {
+      fileUris: [
+        scriptLocation
+      ]
+      commandToExecute: 'powershell -ExecutionPolicy bypass -File ${scriptFileName} -chocoPackages ${chocoPackages}'
     }
   }
 }

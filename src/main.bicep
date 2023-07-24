@@ -18,6 +18,9 @@ param networkSecurityGroupName string
 param vmSize string
 param adminUsername string
 param virtualMachineName string
+param scriptLocation string
+param scriptFileName string
+param chocoPackages string
 
 @secure()
 param adminPassword string
@@ -73,7 +76,9 @@ module developmentVM './modules/devVM.bicep' = {
     virtualMachineSize: vmSize
     adminUsername: adminUsername
     virtualMachineName: virtualMachineName
-
+    scriptLocation: scriptLocation
+    scriptFileName: scriptFileName
+    chocoPackages: chocoPackages
   }
 }
 

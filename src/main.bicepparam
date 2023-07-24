@@ -21,8 +21,10 @@ param publicipBastionName = 'bastion-pip'
 param bastionName = 'my-bastion'
 
 // dev VM related parameters
-param adminPassword = ''
 param adminUsername = ''
+param adminPassword = ''
 param vmSize = 'Standard_D2lds_v5'
 param virtualMachineName = 'WindowsDevVM'
-
+param scriptLocation = 'https://raw.githubusercontent.com/g-ser/azure-devVM-win11/master/src/scripts/ChocoInstall.ps1'
+param scriptFileName = 'ChocoInstall.ps1'
+param chocoPackages = 'vscode'
