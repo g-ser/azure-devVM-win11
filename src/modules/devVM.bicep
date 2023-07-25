@@ -11,7 +11,7 @@ param chocoPackages string
 @secure()
 param adminPassword string
 
-resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = {
+resource virtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01' = {
   name: virtualMachineName
   location: location
   zones: [
@@ -75,7 +75,7 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = {
   }
 }
 
-resource SetupChocolatey 'Microsoft.Compute/virtualMachines/extensions@2019-07-01' = {
+resource SetupChocolatey 'Microsoft.Compute/virtualMachines/extensions@2023-03-01' = {
   parent: virtualMachine
   name: 'SetupChocolatey'
   location: location

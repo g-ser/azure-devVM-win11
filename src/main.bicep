@@ -1,6 +1,7 @@
 // Setting target scope
 targetScope = 'subscription'
 
+param deployBastion bool
 param virtualNetworkName string
 param devVmSubnetName string
 param bastionSubnetName string
@@ -21,6 +22,9 @@ param virtualMachineName string
 param scriptLocation string
 param scriptFileName string
 param chocoPackages string
+param myLaptopPubIP string
+param myBupIPName string
+
 
 @secure()
 param adminPassword string
@@ -42,18 +46,20 @@ module virtualNetwork './modules/network.bicep' = {
     devVmSubnetName: devVmSubnetName
     location: rgLocation
     vnetCidr: vnetCidr
-    publicIpNatGatewayName: publicIpNatGatewayName
-    natGatewayName: natGatewayName
+    natGatewayId: deployBastion ? natGateway.outputs.natGatewayId : ''
     devVmSubnetCidr: devVmSubnetCidr
     bastionSubnetName: bastionSubnetName
     bastionSubnetCidr: bastionSubnetCidr
     networkInterfaceName: networkInterfaceName
     networkSecurityGroupName: networkSecurityGroupName
+    deployBastion: deployBastion
+    myLaptopPubIP: myLaptopPubIP
+    myBupIPName: myBupIPName
   }
 
 }
 
-module azureBastion './modules/bastion.bicep' = {
+module azureBastion './modules/bastion.bicep' = if (deployBastion) {
   name: 'azBastion'
   scope: rg
   params: {
@@ -61,6 +67,16 @@ module azureBastion './modules/bastion.bicep' = {
     bastionName: bastionName
     bastionSubnetId: virtualNetwork.outputs.bastionSubnetId
     location: rgLocation
+  }
+}
+
+module natGateway './modules/natgw.bicep' = if (deployBastion) {
+  name: 'natGateway'
+  scope: rg
+  params: {
+    publicIpNatGatewayName: publicIpNatGatewayName
+    location: rgLocation
+    natGatewayName: natGatewayName
   }
 }
 
