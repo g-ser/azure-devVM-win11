@@ -82,7 +82,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2023-02-01' = {
           protocol: 'Tcp'
           sourcePortRange: '*'
           destinationPortRange: '3389'
-          sourceAddressPrefix: myLaptopPubIP==null ? '*' : '${myLaptopPubIP}/32'
+          sourceAddressPrefix: myLaptopPubIP=='' ? '*' : '${myLaptopPubIP}/32'
           destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 300
