@@ -56,8 +56,9 @@ module virtualNetwork './modules/network.bicep' = {
     myLaptopPubIP: myLaptopPubIP
     myBupIPName: myBupIPName
   }
-
 }
+
+// Create Azure Bastion
 
 module azureBastion './modules/bastion.bicep' = if (deployBastion) {
   name: 'azBastion'
@@ -69,6 +70,8 @@ module azureBastion './modules/bastion.bicep' = if (deployBastion) {
     location: rgLocation
   }
 }
+
+// Create NAT Gateway
 
 module natGateway './modules/natgw.bicep' = if (deployBastion) {
   name: 'natGateway'
